@@ -1,6 +1,6 @@
 <?php
 
-use App\Zone;
+use App\Models\Zone;
 use Illuminate\Database\Seeder;
 
 class ZonesTableSeeder extends Seeder
