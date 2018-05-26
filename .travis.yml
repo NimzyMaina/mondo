@@ -13,4 +13,5 @@ before_script:
 
 script:
   - vendor/bin/phpunit
+  - vendor/bin/phpcbf app --standard=PSR2
   - vendor/bin/phpcs app --standard=PSR2

@@ -10,18 +10,16 @@ class Reference extends Model
 
     public function driver()
     {
-        return $this->belongsTo(Driver::class,'driver_id','id');
+        return $this->belongsTo(Driver::class, 'driver_id', 'id');
     }
 
-    public function service_quality()
+    public function serviceQuality()
     {
-        return $this->belongsTo(Quality::class,'service_quality_id','id');
+        return $this->belongsTo(Quality::class, 'service_quality_id', 'id');
     }
 
-    public function vehicle_quality()
+    public function vehicleQuality()
     {
-        return $this->belongsTo(Quality::class,'vehicle_quality_id','id');
+        return $this->belongsTo(Quality::class, 'vehicle_quality_id', 'id');
     }
-
-
 }
