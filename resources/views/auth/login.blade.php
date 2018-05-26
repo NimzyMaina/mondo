@@ -33,7 +33,7 @@
                                         <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
                                     <label class="pull-right">
-                                        <a href="#">Forgotten Password?</a>
+                                        <a href="{{route('password.request')}}">Forgotten Password?</a>
                                     </label>
 
                                 </div>
