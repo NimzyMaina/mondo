@@ -64,11 +64,46 @@ class DriversController extends Controller
     {
         $this->data['title'] = 'On-board Driver';
         $this->data['subtitle'] = 'Add a new driver into the system';
-        $this->data['edit'] = false;
+        $this->data['is_edit'] = false;
         $this->data['vehicleTypes'] = $this->vehicleTypeRepository->getVehicleTypeDropDown();
         $this->data['providers'] = $this->providerRepository->getProviderDropDown();
         $this->data['zones'] = $this->zoneRepository->getZoneDropDown();
         $this->data['hours'] = $this->hourRepository->getHoursDropDown();
         return view('pages.drivers.form', $this->data);
+    }
+
+    public function storeDriver(Request $request)
+    {
+//        dd($request->all());
+        $this->validate($request, [
+            'name' => 'required|min:3',
+            'driver_id' => 'required|numeric',
+            'vehicle_type_id' => 'required',
+            'vehicle_owner' => 'sometimes|alpha_spaces',
+            'phone_number' => 'required',
+            'call_provider_id' => 'required|numeric',
+            'phone_model' => 'sometimes|alpha_spaces',
+            'isp_provider_id' => 'required|numeric',
+            'zone_id' => 'required|numeric',
+            'area' => 'sometimes|alpha_spaces',
+            'station' => 'sometimes|alpha_spaces',
+            'hour_id' => 'required|numeric'
+        ]);
+
+        if ($this->driverRepository->addDriver($request->all())) {
+            return back()->with('success', 'Driver added successfully');
+        }
+
+        return back()->with('error', 'Something went wrong. Please try again.');
+    }
+
+    public function editDriver(Request $request, $id)
+    {
+
+    }
+
+    public function updateDriver(Request $request, $id)
+    {
+
     }
 }

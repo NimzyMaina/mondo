@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Driver extends Model
 {
-    protected $fillable = ['name','vehicle_type_id','driver_id','vehicle_owner','active','smartphone','documents',
-        'trained','registration_fees','online','inspected','banned','phone_number','call_provider_id',
+    protected $fillable = ['name','vehicle_type_id','driver_id','vehicle_owner','active','smartphone','pictures',
+        'documents', 'trained','registration_fees','online','inspected','banned','phone_number','call_provider_id',
         'isp_provider_id','phone_model','zone_id','area','station','hour_id'];
 
     public function vehicleType()

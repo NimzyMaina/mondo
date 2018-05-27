@@ -1,5 +1,5 @@
 @if( Session::has('success'))
-    <div id="infoMessage" class="alert alert-success">
+    <div id="infoMessage" class="alert alert-info">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {!! Session::get('success') !!}
     </div>

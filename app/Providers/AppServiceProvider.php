@@ -13,6 +13,7 @@ use App\Repositories\ProviderRepository;
 use App\Repositories\VehicleTypeRepository;
 use App\Repositories\ZoneRepository;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,15 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
+        Validator::extend('alpha_spaces', function ($attribute, $value) {
+            if (is_null($value)) {
+                return true;
+            }
+            // This will only accept alpha, num and spaces.
+            // If you want to accept hyphens use: /^[\pL\s-]+$/u.
+            return preg_match('/^[a-zA-Z0-9\s]+$/', $value);
+        });
     }
 
     /**
