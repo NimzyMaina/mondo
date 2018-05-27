@@ -34,7 +34,8 @@ class ZonesTableSeeder extends Seeder
             ['name' => 'Lavington'],
         ];
 
-        foreach ($data as $d)
+        foreach ($data as $d) {
             Zone::create($d);
+        }
     }
 }

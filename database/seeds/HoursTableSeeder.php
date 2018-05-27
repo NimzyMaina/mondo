@@ -27,8 +27,8 @@ class HoursTableSeeder extends Seeder
             ['name' => 'Week Nights & Weekend Nights']
         ];
 
-        foreach ($data as $d)
+        foreach ($data as $d) {
             Hour::create($d);
-
+        }
     }
 }

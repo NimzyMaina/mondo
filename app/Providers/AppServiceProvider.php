@@ -2,6 +2,16 @@
 
 namespace App\Providers;
 
+use App\Contracts\IDriverRepository;
+use App\Contracts\IHourRepository;
+use App\Contracts\IProviderRepository;
+use App\Contracts\IVehicleTypeRepository;
+use App\Contracts\IZoneRepository;
+use App\Repositories\DriverRepository;
+use App\Repositories\HourRepository;
+use App\Repositories\ProviderRepository;
+use App\Repositories\VehicleTypeRepository;
+use App\Repositories\ZoneRepository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,6 +34,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        // Driver Repository
+        $this->app->bind(IDriverRepository::class, DriverRepository::class);
+        // Vehicle Type Repo
+        $this->app->bind(IVehicleTypeRepository::class, VehicleTypeRepository::class);
+        // Provider Repo
+        $this->app->bind(IProviderRepository::class, ProviderRepository::class);
+        // Zone Repo
+        $this->app->bind(IZoneRepository::class, ZoneRepository::class);
+        // Hour Repo
+        $this->app->bind(IHourRepository::class, HourRepository::class);
     }
 }

@@ -20,7 +20,8 @@ class ProvidersTableSeeder extends Seeder
             ['name' => 'Orange']
         ];
 
-        foreach ($data as $d)
+        foreach ($data as $d) {
             Provider::create($d);
+        }
     }
 }

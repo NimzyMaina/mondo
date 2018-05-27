@@ -20,6 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::get('t',function (){
+Route::get('t', function () {
     return view('test');
+});
+
+Route::group(['prefix' => 'drivers'], function () {
+    //Show On-boarding form
+    Route::get('on-board', 'DriversController@showOnBoard')->name('drivers.show-board');
 });

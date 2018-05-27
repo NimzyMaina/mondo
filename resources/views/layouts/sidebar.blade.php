@@ -9,7 +9,7 @@
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-sitemap"></i><span class="hide-menu">Drivers</span></a>
                     <ul aria-expanded="false" class="collapse">
                         <li><a href="#">View Drivers </a></li>
-                        <li><a href="#">On-board Driver</a></li>
+                        <li><a href="{{route('drivers.show-board')}}">On-board Driver</a></li>
                     </ul>
                 </li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Users</span></a>

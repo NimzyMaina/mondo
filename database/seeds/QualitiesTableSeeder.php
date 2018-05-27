@@ -21,8 +21,8 @@ class QualitiesTableSeeder extends Seeder
             ['name' => 'Terrible']
         ];
 
-        foreach ($data as $d)
+        foreach ($data as $d) {
             Quality::create($d);
-
+        }
     }
 }
