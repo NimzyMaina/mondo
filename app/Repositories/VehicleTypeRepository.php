@@ -19,5 +19,4 @@ class VehicleTypeRepository implements IVehicleTypeRepository
         $vt = VehicleType::pluck('name', 'id')->toArray();
         return ['' => '-SELECT-'] + $vt;
     }
-
 }

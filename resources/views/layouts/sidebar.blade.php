@@ -8,7 +8,7 @@
                 <li class="nav-label">Management</li>
                 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-sitemap"></i><span class="hide-menu">Drivers</span></a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a href="#">View Drivers </a></li>
+                        <li><a href="{{route('drivers.index')}}">View Drivers </a></li>
                         <li><a href="{{route('drivers.create')}}">On-board Driver</a></li>
                     </ul>
                 </li>

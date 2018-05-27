@@ -64,6 +64,9 @@
     <!-- End Page wrapper  -->
 </div>
 <!-- End Wrapper -->
+<script>
+    const baseurl = '{{url("/").'/'}}';
+</script>
 <!-- All Jquery -->
 <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 <!-- Bootstrap tether Core JavaScript -->

@@ -25,6 +25,10 @@ Route::get('t', function () {
 });
 
 Route::group(['prefix' => 'drivers'], function () {
+    // Show all drivers
+    Route::get('view', 'DriversController@index')->name('drivers.index');
+    // Datatables driver data
+    Route::get('data', 'DriversController@getDrivers')->name('drivers.data');
     //Show On-boarding form
     Route::get('on-board', 'DriversController@showOnBoard')->name('drivers.create');
     // Store driver

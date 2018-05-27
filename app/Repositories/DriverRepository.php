@@ -38,14 +38,21 @@ class DriverRepository implements IDriverRepository
         return (is_null($param) && is_null($field))? Driver::all() : Driver::where($field, $param)->get();
     }
 
-    public function updateDriver($id, $data = [])
+    public function updateDriver($id, $data = [], $field = 'id')
     {
-        return DB::transaction(function () use ($id, $data) {
+        return DB::transaction(function () use ($id, $data, $field) {
             $data['updated_at'] = Carbon::now();
-            if (Driver::where('id', $id)->update($data)) {
+            if (Driver::where($field, $id)->update($data)) {
                 return true;
             }
             return false;
         });
+    }
+
+    public function getDriverDataTableData($columns = [])
+    {
+        return Driver::select($columns)
+            ->join('vehicle_types', 'vehicle_types.id', 'drivers.vehicle_type_id')
+            ->join('zones', 'zones.id', 'drivers.zone_id');
     }
 }

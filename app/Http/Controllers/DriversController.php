@@ -7,7 +7,10 @@ use App\Contracts\IHourRepository;
 use App\Contracts\IProviderRepository;
 use App\Contracts\IVehicleTypeRepository;
 use App\Contracts\IZoneRepository;
+use App\Models\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class DriversController extends Controller
 {
@@ -55,6 +58,32 @@ class DriversController extends Controller
         $this->hourRepository = $hourRepository;
     }
 
+    public function index()
+    {
+        $this->data['title'] = 'View All Drivers';
+        $this->data['subtitle'] = 'View all drivers into the system';
+        return view('pages.drivers.index', $this->data);
+    }
+
+    public function getDrivers(Request $request)
+    {
+
+        $columns = [
+            'drivers.id','drivers.name', 'driver_id',
+            'phone_number', DB::raw('vehicle_types.name AS vehicle_type'), 'drivers.active',
+            DB::raw('zones.name AS zone_name'),'banned'
+        ];
+
+        $drivers = $this->driverRepository->getDriverDataTableData($columns);
+
+        return Datatables::of($drivers)
+            ->addColumn('action', function ($user) {
+                return '<a href="'.route('drivers.edit', ['id' => $user->driver_id]).'" 
+                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
+            })
+            ->make(true);
+    }
+
     /**
      * Show the driver on-board form
      * @param Request $request
@@ -74,8 +103,39 @@ class DriversController extends Controller
 
     public function storeDriver(Request $request)
     {
-//        dd($request->all());
-        $this->validate($request, [
+        $this->validateDriver();
+        if ($this->driverRepository->addDriver($request->all())) {
+            return back()->with('success', 'Driver added successfully');
+        }
+
+        return back()->with('error', 'Something went wrong. Please try again.');
+    }
+
+    public function editDriver(Request $request, $id)
+    {
+        $this->data['driver'] = $this->driverRepository->getDriver($id, 'driver_id');
+        $this->data['title'] = $this->data['driver']->name;
+        $this->data['subtitle'] = 'Update driver information';
+        $this->data['is_edit'] = true;
+        $this->data['vehicleTypes'] = $this->vehicleTypeRepository->getVehicleTypeDropDown();
+        $this->data['providers'] = $this->providerRepository->getProviderDropDown();
+        $this->data['zones'] = $this->zoneRepository->getZoneDropDown();
+        $this->data['hours'] = $this->hourRepository->getHoursDropDown();
+        return view('pages.drivers.form', $this->data);
+    }
+
+    public function updateDriver(Request $request, $id)
+    {
+        $this->validateDriver();
+        if ($this->driverRepository->updateDriver($id, $request->except('_token', '_method'), 'driver_id')) {
+            return back()->with('success', 'Driver updated successfully');
+        }
+        return back()->with('error', 'Something went wrong. Please try again.');
+    }
+
+    protected function validateDriver()
+    {
+        $this->validate(request(), [
             'name' => 'required|min:3',
             'driver_id' => 'required|numeric',
             'vehicle_type_id' => 'required',
@@ -89,21 +149,5 @@ class DriversController extends Controller
             'station' => 'sometimes|alpha_spaces',
             'hour_id' => 'required|numeric'
         ]);
-
-        if ($this->driverRepository->addDriver($request->all())) {
-            return back()->with('success', 'Driver added successfully');
-        }
-
-        return back()->with('error', 'Something went wrong. Please try again.');
-    }
-
-    public function editDriver(Request $request, $id)
-    {
-
-    }
-
-    public function updateDriver(Request $request, $id)
-    {
-
     }
 }

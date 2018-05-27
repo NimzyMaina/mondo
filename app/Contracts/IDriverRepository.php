@@ -20,5 +20,7 @@ interface IDriverRepository
 
     public function getDrivers($param = null, $field = null);
 
-    public function updateDriver($id, $data = []);
+    public function updateDriver($id, $data = [], $field = 'id');
+
+    public function getDriverDataTableData($columns = []);
 }
